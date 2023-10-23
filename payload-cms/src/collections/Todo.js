@@ -24,18 +24,18 @@ const Todo = {
         },
       },
       {
-        name: 'Kategori',
+        name: 'Category',
         type: 'relationship',
         required: true,
         relationTo: 'Category',
         filterOptions: ({ relationTo, siblingData }) => {
           return {
-            division: { equals: 'Kuliah' }
-          };
-        },
+            division : { equals : 'Kuliah' }
+          }
+        }
       },
-    ],
-  };
+    ]
+  }
   
   export default Todo;
   
