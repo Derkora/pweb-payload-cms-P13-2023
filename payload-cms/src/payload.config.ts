@@ -10,7 +10,6 @@ import Todo from './collections/Todo'
 import Category from './collections/Category'
 
 export default buildConfig({
-  cors : "*",
   admin: {
     user: Users.slug,
     bundler: webpackBundler(),
