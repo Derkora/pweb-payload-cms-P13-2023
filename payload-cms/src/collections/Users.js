@@ -5,8 +5,6 @@ const Users  = {
     useAsTitle: 'email',
   },
   fields: [
-    // Email added by default
-    // Add more fields as needed
   ],
 }
 

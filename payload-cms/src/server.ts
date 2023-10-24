@@ -6,22 +6,19 @@ require('dotenv').config();
 
 const app = express();
 
-// Atur opsi CORS
 const corsOptions = {
-  origin: 'http://localhost:5173', // Ganti dengan domain asal Anda
+  origin: 'http://localhost:5173', // sesuai dengan domain client
   optionsSuccessStatus: 200,
   credentials: true,
 };
 
 app.use(cors(corsOptions));
 
-// Redirect root to Admin panel
 app.get('/', (_, res) => {
   res.redirect('/admin');
 });
 
 const start = async () => {
-  // Initialize Payload
   await payload.init({
     secret: process.env.PAYLOAD_SECRET,
     mongoURL: process.env.MONGODB_URI,
