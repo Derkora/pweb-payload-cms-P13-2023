@@ -33,6 +33,12 @@ const Todo = {
         },
       },
     },
+    {
+      name: 'Category',
+      type: 'relationship',
+      required: true,
+      relationTo: 'Category',
+    },
   ],
   hooks: {
     afterChange: [
