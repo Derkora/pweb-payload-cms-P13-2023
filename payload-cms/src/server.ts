@@ -3,7 +3,6 @@ import cors from 'cors';
 import payload from 'payload';
 
 require('dotenv').config();
-
 const app = express();
 
 const corsOptions = {
@@ -21,7 +20,6 @@ app.get('/', (_, res) => {
 const start = async () => {
   await payload.init({
     secret: process.env.PAYLOAD_SECRET,
-    mongoURL: process.env.MONGODB_URI,
     express: app,
     onInit: async () => {
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
