@@ -14,7 +14,6 @@ const Todo = {
     {
       name: 'tombol',
       type: 'checkbox',
-      label: 'done',
       defaultValue: false,
     },
     {
