@@ -40,43 +40,7 @@ const Todo = {
       relationTo: 'Category',
     },
   ],
-  hooks: {
-    afterChange: [
-      async ({ data, req }) => {
-        // logic to execute after a change in Todo
-        await req.payload.create({
-          collection: 'Log',
-          data: {
-            Collection: 'Todo',
-            Action: 'create',
-            Timestamp: new Date(),
-          },
-        });
-      },
-      async ({ id, data, req }) => {
-        // logic to execute after an update in Todo
-        await req.payload.update({
-          collection: 'Log',
-          data: {
-            Collection: 'Todo',
-            Action: 'update',
-            Timestamp: new Date(),
-          },
-        });
-      },
-      async ({ id, req }) => {
-        // logic to execute after a delete in Todo
-        await req.payload.delete({
-          collection: 'Log',
-          data: {
-            Collection: 'Todo',
-            Action: 'delete',
-            Timestamp: new Date(),
-          },
-        });
-      },
-    ],
-  },
+  
 }
 
 export default Todo;
