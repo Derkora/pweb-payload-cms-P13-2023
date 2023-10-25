@@ -1,8 +1,8 @@
 /** @type {import('payload/types').CollectionConfig} */
 const Todo = {
   slug: "Todo",
-  admin : {
-    useAsTitle : "Tugas"
+  admin: {
+    useAsTitle: "Tugas"
   },
   access: {
     read: () => true,
@@ -13,7 +13,7 @@ const Todo = {
   fields: [
     {
       name: 'tombol',
-      type: 'checkbox', 
+      type: 'checkbox',
       label: 'done',
       defaultValue: false,
     },
@@ -33,42 +33,44 @@ const Todo = {
         },
       },
     },
-    {
-      name: 'Category',
-      type: 'relationship',
-      required: true,
-      relationTo: 'Category',
-    },
   ],
-  hooks : {
-    afterChange : [
-      async ({ operation, data, originalDoc }) => {
-        if (operation === 'create' || operation === 'update' || operation === 'delete') {
-          const collection = Todo.slug;
-          const action = operation;
-          const timestamp = new Date().toISOString();
-          await payload.create({
-            collection : Log.slug,
-            data : { Collection : collection, Action : action, Timestamp : timestamp }
-          });
-        }
-      }
+  hooks: {
+    afterChange: [
+      async ({ data, req }) => {
+        // logic to execute after a change in Todo
+        await req.payload.create({
+          collection: 'Log',
+          data: {
+            Collection: 'Todo',
+            Action: 'create',
+            Timestamp: new Date(),
+          },
+        });
+      },
+      async ({ id, data, req }) => {
+        // logic to execute after an update in Todo
+        await req.payload.update({
+          collection: 'Log',
+          data: {
+            Collection: 'Todo',
+            Action: 'update',
+            Timestamp: new Date(),
+          },
+        });
+      },
+      async ({ id, req }) => {
+        // logic to execute after a delete in Todo
+        await req.payload.delete({
+          collection: 'Log',
+          data: {
+            Collection: 'Todo',
+            Action: 'delete',
+            Timestamp: new Date(),
+          },
+        });
+      },
     ],
-    beforeValidate : [
-      async ({ data }) => {
-        if (data._id) {
-          const todo = await payload.findOne({
-            collection : Todo.slug,
-            id : data._id
-          });
-          data.Collection = todo.Tugas;
-        } else {
-          data.Collection = Todo.slug;
-        }
-        return data;
-      }
-    ]
-  }
-};
+  },
+}
 
 export default Todo;

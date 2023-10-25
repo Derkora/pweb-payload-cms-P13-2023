@@ -6,12 +6,12 @@ const Log = {
   },
   access: {
     read: () => true,
-    create: () => true, // Menyembunyikan opsi pembuatan log dari admin
+    create: () => true,
   },
   fields: [
     {
-      name: 'Collection',
-      type: 'text',
+      name: "Collection",
+      type: "text",
       required: true,
     },
     {
@@ -38,21 +38,6 @@ const Log = {
       defaultValue: new Date().toISOString(),
     }
   ],
-  hooks : {
-    afterChange : [
-      async ({ operation, data, originalDoc }) => {
-        if (operation === 'create' || operation === 'update' || operation === 'delete') {
-          const collection = originalDoc.slug;
-          const action = operation;
-          const timestamp = new Date().toISOString();
-          await payload.create({
-            collection : Log.slug,
-            data : { Collection : collection, Action : action, Timestamp : timestamp }
-          });
-        }
-      }
-    ]
-  }
-};
+}
 
 export default Log;
