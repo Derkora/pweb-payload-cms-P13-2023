@@ -14,6 +14,7 @@ import HelloWorld from './components/HelloWorld.vue'
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/Category">Category</RouterLink>
         <RouterLink to="/ToDo">To-Do List</RouterLink>
+        <RouterLink to="/Log">Log</RouterLink>
       </nav>
     </div>
   </header>
@@ -33,7 +34,7 @@ header {
 }
 
 nav {
-  width: 100%;
+  width: 150%;
   font-size: 12px;
   text-align: center;
   margin-top: 2rem;

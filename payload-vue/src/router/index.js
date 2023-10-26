@@ -9,6 +9,7 @@ const router = createRouter({
     {path: '/', name: 'home', component: HomeView},
     {path: '/Category', name: 'Category', component: () => import('../views/Category.vue')},
     {path: '/ToDo', name: 'ToDo', component: () => import('../views/ToDo.vue')},
+    {path: '/Log', name: 'Log', component: () => import('../views/Log.vue')},
     { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFoundView},
   ]
 })

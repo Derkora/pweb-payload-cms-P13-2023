@@ -10,11 +10,13 @@
         <select id="category" v-model="category" required>
           <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.nama }}</option>
         </select><br>
-        <input type="submit" value="Tambah">
+        <input type="submit" value="Tambah" class="tambah">
       </form> 
+      <h2>What to do:</h2>
       <ul>
         <li v-for="todo in todos" :key="todo.id">
-          {{ todo.Tugas }} - {{ formatDate(todo.Tanggal) }} - {{ todo.Category ? todo.Category : 'Tidak ada kategori' }}
+          <input type="checkbox" id="tombol" v-model="todo.tombol">
+          {{ todo.Tugas }} - {{ formatDate(todo.Tanggal) }} - {{ todo.Category }}
           <button @click="openModal(todo)">Edit</button>
           <button @click="deleteTodo(todo.id)">Hapus</button>
         </li>
@@ -36,6 +38,59 @@
     </div>
     </div>
   </template>
+
+  <style scoped>
+    * {
+      text-align: center;
+      
+    }
+
+    li input {
+      margin: 0;
+      width: 16px;
+      height: 16px;
+      margin-right: 5%;
+
+    }
+
+    li {
+      list-style: none;
+      text-align: start;
+
+    }
+
+    input {
+      width: 70%;
+      border-radius: 4px;
+      border: none;
+      margin-bottom: 16px;
+      height: 32px;
+    }
+
+    select {
+      width: 70%;
+      border-radius: 4px;
+      margin-bottom: 16px;
+      height: 32px;
+    }
+
+    button {
+      float: right;
+      background: none;
+      background-color: #00bd7e ;
+      border: none;
+      border-radius: 4px;
+      margin-left: 8px;
+      padding: 4px;
+
+    }
+
+    .tambah {
+      background-color: #00bd7e ;
+
+    }
+
+  </style>
   
   <script>
   import { ref, onMounted } from 'vue'
@@ -56,6 +111,11 @@
       const tugas = ref('')
       const tanggal = ref('')
       const category = ref('')
+      const editId = ref('')
+      const editTugas = ref('')
+      const editTanggal = ref('')
+      const editKategori = ref('')
+      const tombol = ref('')
       const todos = ref([])
       const categories = ref([])
   
@@ -116,32 +176,54 @@
         }
       }
 
-      const editTodo = async () => {
-      try {
-        const response = await fetch(`http://localhost:3000/api/Todo/${this.editId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ Tugas: this.editTugas, Tanggal: this.editTanggal, Category: this.editCategory }),
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        alert('Todo berhasil diperbarui!');
-        this.closeModal();
-        this.fetchTodos();
-      } catch (error) {
-        console.error(error);
-        alert('Terjadi kesalahan saat memperbarui todo.');
-      }
+      const toggleTodo = async (todo) => {
+  try {
+    const response = await fetch(`http://localhost:3000/api/Todo/${todo.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ tombol: todo.tombol }),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    alert('Todo berhasil diperbarui!');
+    await fetchTodos();
+  } catch (error) {
+    console.error(error);
+    alert('Terjadi kesalahan saat memperbarui todo.');
+  }
+}
+      const editTodo = async (editId) => {
+  try {
+    const response = await fetch(`http://localhost:3000/api/Todo/${editId.value}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ Tugas: editTugas.value, Tanggal: editTanggal.value, Category: editKategori.value }),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    alert('Todo berhasil diperbarui!');
+    closeModal();
+    await fetchTodos();
+  } catch (error) {
+    console.error(error);
+    alert('Terjadi kesalahan saat memperbarui todo.');
+  }
+}
 
 
       const deleteTodo = async (id) => {
         try {
           const response = await fetch(`http://localhost:3000/api/Todo/${id}`, { 
-            method: 'DELETE' 
+            method: 'DELETE',
+            headers: {
+        'Content-Type': 'application/json',
+        }, 
         })
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -159,7 +241,7 @@
         fetchCategories()
       })
   
-      return { tugas, tanggal, category, todos, categories, addTodo, editTodo, deleteTodo }
+      return { tugas, tanggal, category, todos, categories, tombol, editId, addTodo, editTodo, deleteTodo, toggleTodo }
     },
     methods: {
     formatDate(dateString) {
