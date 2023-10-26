@@ -77,7 +77,6 @@ export default {
         const data = await response.json()
         console.log(data)
         alert('Kategori berhasil diubah!')
-        closeModal();
       } catch (error) {
         console.error(error)
         alert('Terjadi kesalahan saat mengubah kategori.')
