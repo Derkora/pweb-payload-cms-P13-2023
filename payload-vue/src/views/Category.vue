@@ -26,6 +26,58 @@
       </div>
   </div>
 </template>
+<style scoped>
+
+* {
+  text-align: center;
+  
+}
+
+li input {
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  margin-right: 5%;
+
+}
+
+li {
+  list-style: none;
+  text-align: center;
+
+}
+
+input {
+  width: 70%;
+  border-radius: 4px;
+  border: none;
+  margin-bottom: 16px;
+  height: 32px;
+}
+
+select {
+  width: 70%;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  height: 32px;
+}
+
+button {
+  background: none;
+  background-color: #00bd7e ;
+  border: none;
+  border-radius: 4px;
+  margin-left: 8px;
+  padding: 4px;
+
+}
+
+.tambah {
+  background-color: #00bd7e ;
+
+}
+
+</style>
 
 <script>
 import { ref, onMounted  } from 'vue'

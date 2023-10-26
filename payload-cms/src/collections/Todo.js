@@ -74,6 +74,9 @@ const Todo = {
       type: 'relationship',
       required: true,
       relationTo: 'Category',
+      displayProperties:{
+        display:['nama']
+      }
     },
   ],
   
