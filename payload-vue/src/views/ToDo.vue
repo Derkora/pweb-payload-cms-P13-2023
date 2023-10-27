@@ -16,7 +16,7 @@
     <ul>
       <li v-for="todo in todos" :key="todo.id">
         <input type="checkbox" id="tombol" v-model="todo.tombol">
-        {{ todo.Tugas }} - {{ formatDate(todo.Tanggal) }} - {{ todo.Category }}
+        {{ todo.Tugas }} - {{ formatDate(todo.Tanggal) }} - {{ todo.Category.nama }}
         <button @click="showModal = true; todoToEdit = todo">Edit</button>
         <button @click="deleteTodo(todo)">Hapus</button>
       </li>
@@ -108,7 +108,13 @@
   
       const fetchTodos = async () => {
         try {
-          const response = await fetch('http://localhost:3000/api/Todo')
+          const response = await fetch('http://localhost:3000/api/Todo',{
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
@@ -154,6 +160,7 @@
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           alert('Todo berhasil ditambahkan!')
+
           tugas.value = ''
           tanggal.value = ''
           category.value = ''
