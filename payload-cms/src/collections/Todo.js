@@ -24,7 +24,7 @@ const Todo = {
             },
           });
         } 
-        if (args.operation == "update") {
+        if (args.operation == "updateByID") {
           payload.create({
             collection: "log",
             data: {
@@ -34,7 +34,7 @@ const Todo = {
             },
           });
         } 
-        if (args.operation == "delete") {
+        if (args.operation == "deleteByID") {
           payload.create({
             collection: "log",
             data: {

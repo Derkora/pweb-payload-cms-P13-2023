@@ -136,7 +136,7 @@
           categories.value = data.docs
         } catch (error) {
           console.error(error)
-          alert('Terjadi kesalahan saat mengambil data kategori.')
+          alert('Terjadi kesalahan saat mengambil data todo.')
         }
       }
   
@@ -148,12 +148,13 @@
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ Tugas: tugas.value, Tanggal: tanggal.value, Category: category.value }),
+            body: JSON.stringify({ tombol: tombol.value, Tugas: tugas.value, Tanggal: tanggal.value, Category: category.value }),
           })
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           alert('Todo berhasil ditambahkan!')
+          tombol.value = ''
           tugas.value = ''
           tanggal.value = ''
           category.value = ''
@@ -172,7 +173,7 @@
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ Tugas: todo.tugas, Tanggal: todo.tanggal, Category: todo.category}),
+          body: JSON.stringify({ tombol: todo.tombol, Tugas: todo.tugas, Tanggal: todo.tanggal, Category: todo.category}),
         })
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
