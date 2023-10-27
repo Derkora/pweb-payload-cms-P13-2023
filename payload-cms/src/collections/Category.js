@@ -19,7 +19,7 @@ const Category = {
             },
           });
         } 
-        if (args.operation == "updateByID") {
+        if (args.operation == "update") {
           payload.create({
             collection: "log",
             data: {
@@ -29,7 +29,7 @@ const Category = {
             },
           });
         } 
-        if (args.operation == "deleteByID") {
+        if (args.operation == "delete") {
           payload.create({
             collection: "log",
             data: {
